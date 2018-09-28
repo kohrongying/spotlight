@@ -24,6 +24,9 @@ gulp.task('html', function() {
     return gulp.src('src/*.html')
         .pipe(minifyHTML({collapseWhitespace: true}))
         .pipe(gulp.dest('docs'))
+        .pipe(browserSync.reload({
+            stream: true
+        }));
   });
 
 /* Clean Files */
@@ -35,14 +38,12 @@ gulp.task('clean', function(){
 Combine running server with watch files under serve task 
 Clean files before starting styles/scripts/html
 */ 
-gulp.task('serve', ['clean'], function(){
-    gulp.start('sass');
-    gulp.start('html');
-	browserSync.init({
-		server: 'docs'
+gulp.task('serve', ['clean', 'sass', 'html'], function(){
+    gulp.watch('src/*.scss', ['sass']);
+    gulp.watch('src/*.html', ['html']);
+    browserSync.init({
+		server: './docs'
 	});
-	gulp.watch('src/*.scss', ['sass']);
-    gulp.watch('docs/*.html', browserSync.reload);
 });
 
 gulp.task('default', ['serve']);
