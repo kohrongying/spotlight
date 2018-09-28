@@ -5,7 +5,8 @@ const gulp = require('gulp'),
     browserSync = require('browser-sync'),
     minifyCSS = require('gulp-clean-css'),
     minifyHTML = require('gulp-htmlmin'),
-    del = require('del')
+    del = require('del'),
+    uglify = require('gulp-uglify')
 
 // Styles
 gulp.task('sass', function() {
@@ -24,26 +25,38 @@ gulp.task('html', function() {
     return gulp.src('src/*.html')
         .pipe(minifyHTML({collapseWhitespace: true}))
         .pipe(gulp.dest('docs'))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
   });
 
+// Scripts
+gulp.task('scripts', function () {
+    return gulp.src('src/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('docs'))
+    
+});
+  
 /* Clean Files */
 gulp.task('clean', function(){
-	return del(['docs/css' , 'docs']);
+	return del(['docs']);
 })
 
-/*
-Combine running server with watch files under serve task 
-Clean files before starting styles/scripts/html
-*/ 
-gulp.task('serve', ['clean', 'sass', 'html'], function(){
-    gulp.watch('src/*.scss', ['sass']);
-    gulp.watch('src/*.html', ['html']);
+/* Clean files before starting styles/scripts/html */
+gulp.task('browser-sync', ['clean', 'sass', 'html', 'scripts'], function() {
     browserSync.init({
 		server: './docs'
 	});
+})
+
+/*
+Run Browser-sync and 
+Watch Files
+Reload browersync when html files change 
+*/ 
+gulp.task('serve', ['browser-sync'], function(){
+    gulp.watch('src/*.scss', ['sass']);
+    gulp.watch('src/*.html', ['html']);
+    gulp.watch('src/*.js', ['scripts']);
+    gulp.watch(['docs/*.js', 'docs/*.html']).on('change', browserSync.reload)
 });
 
 gulp.task('default', ['serve']);
