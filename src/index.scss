@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Bungee|Bungee+Hairline|Raleway');
+
+body {
+    margin: 0
+}
+
+.main {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.box {
+    width: 200px;
+    height: 200px;
+    z-index: 1;
+
+    .image {
+        width: 200px;
+    }
+    &:hover {
+        z-index: 3;
+    }
+    &:hover  ~ .overlay {
+        opacity: 0.8;
+        z-index: 2;
+    }
+    &:hover .top-container, &:hover .bottom-container  {
+        display: flex; 
+    }
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: black;
+    opacity: 0;
+}
+
+.top-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    top: 0;
+    bottom: calc(50vh + 100px);
+    display:none;
+    .header { 
+        font-family: Bungee;
+        margin:0;
+        padding: 0;
+        color: white;
+    } 
+    .subheader {
+        font-family: 'Bungee Hairline';
+        padding: 0;
+        margin-top: 5px;
+        margin-bottom: 30px;
+        color: white;
+    }
+}
+
+.bottom-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    top: calc(50vh + 100px);
+    bottom: 0;
+    display:none;
+    .para {
+        font-family: Raleway;
+        margin-top: 30px;
+        padding: 0 100px;
+        line-height: 30px;
+        color: white;
+        text-align: center;
+    }
+}
+

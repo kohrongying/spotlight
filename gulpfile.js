@@ -6,7 +6,8 @@ const gulp = require('gulp'),
     minifyCSS = require('gulp-clean-css'),
     minifyHTML = require('gulp-htmlmin'),
     del = require('del'),
-    uglify = require('gulp-uglify')
+    uglify = require('gulp-uglify'),
+    copy = require('gulp-copy')
 
 // Styles
 gulp.task('sass', function() {
@@ -37,11 +38,17 @@ gulp.task('scripts', function () {
   
 /* Clean Files */
 gulp.task('clean', function(){
-	return del(['docs']);
+	return del.sync(['docs']);
+})
+
+// Copy assets over
+gulp.task('copy', function(){
+    return gulp.src('src/assets/*.jpg')
+        .pipe(copy('docs/assets', {prefix: 2}))
 })
 
 /* Clean files before starting styles/scripts/html */
-gulp.task('browser-sync', ['clean', 'sass', 'html', 'scripts'], function() {
+gulp.task('browser-sync', ['clean', 'sass', 'html', 'scripts', 'copy'], function() {
     browserSync.init({
 		server: './docs'
 	});

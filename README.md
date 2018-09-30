@@ -1,4 +1,2 @@
-## Gulp Boilerplate
-- Gulp@3.9.1
-- git clone
-- npm install
+## Spotlight
+Hover over the picture to gain new insights
