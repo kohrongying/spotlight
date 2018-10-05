@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css?family=Bungee|Bungee+Hairline|Raleway');
+
+body {
+    margin: 0;
+}
+
+.main {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: flex .8s ease; 
+
+    &:hover {
+        flex: 3;
+    }
+
+    &:hover .textContainer {
+        display: flex;
+    }
+
+    &:hover .overlay {
+        opacity: 0;
+    }
+
+    &:hover ~ .intro {
+        display: none;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: black;
+        opacity: 0.5;
+    }
+
+}
+
+.col1 {
+    background-image: url('/assets/photo1.jpg'); 
+    background-size: 50vw 100vh;
+}
+
+.col2 {
+    background-image: url('/assets/photo2.jpg');
+    background-size: 50vw 100vh;
+}
+
+.col3 {
+    background-image: url('/assets/photo3.jpg');
+    background-size: 50vw 100vh;
+}
+
+.col4 {
+    background-image: url('/assets/photo4.jpg');
+    background-size: 50vw 100vh;
+}
+
+.textContainer {
+    background-color: black;
+    opacity: 0.5;
+    flex-direction: column;
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    padding: 25px;
+    display: none;
+
+    .header { 
+        font-family: Bungee;
+        margin:0;
+        padding: 0;
+        color: white;
+    } 
+    
+    .subheader {
+        font-family: 'Bungee Hairline';
+        padding: 0;
+        margin: 0;
+        color: white;
+    }
+    
+    .para {
+        font-family: Raleway;
+        padding: 0 20px;
+        line-height: 30px;
+        color: white;
+        text-align: center;
+    }
+}
+
+.intro {
+    position: absolute;
+    border: 1px solid white;
+    padding: 15px 30px;
+    align-self: center;
+
+    h3 {
+        color: white;
+        font-family: 'Bungee Hairline'
+    }
+}
